@@ -2,4 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Movie
-admin.site.register(Movie)
+
+class MoveAdmin(admin.ModelAdmin):
+    ordering = ['name']
+    search_fields = ['name']
+
+admin.site.register(Movie, MoveAdmin)
