@@ -12,15 +12,12 @@
             <div class="row">
               <div class="col-auto">
                 <div class="input-group col-auto">
-                  <div class="input-group-text">
-                    Search</div>
-                  <input type="text" class="form-control"
-                    name="search">
+                  <div class="input-group-text">Search</div>
+                  <input type="text" class="form-control" name="search">
                 </div>
               </div>
               <div class="col-auto">
-                <button class="btn bg-dark text-white"
-                  type="submit">Search</button>
+                <button class="btn bg-dark text-white" type="submit">Search</button>
               </div>
             </div>
           </form>
@@ -31,11 +28,9 @@
       {% for movie in template_data.movies %}
       <div class="col-md-4 col-lg-3 mb-2">
         <div class="p-2 card align-items-center pt-4">
-          <img src="{{ movie.image.url }}"
-            class="card-img-top rounded img-card-200">
+          <img src="{{ movie.image.url }}" class="card-img-top rounded img-card-200">
           <div class="card-body text-center">
-            <a href="{% url 'movies.show' id=movie.id %}"
-              class="btn bg-dark text-white">
+            <a href="{% url 'movies.show' id=movie.id %}" class="btn bg-dark text-white">
               {{ movie.name }}
             </a>
           </div>
