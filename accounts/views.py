@@ -31,7 +31,7 @@ def login(request):
                 {'template_data': template_data})
         else:
             auth_login(request, user)
-            return redirect('accounts.login')
+            return redirect('home.index')
 
 def signup(request):
     template_data = {'title': 'Sign Up'}
