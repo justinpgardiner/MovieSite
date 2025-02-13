@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse, Http404
+import os
 
 def index(request):
     search_term = request.GET.get('search')
@@ -61,3 +63,12 @@ def delete_review(request, id, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     review.delete()
     return redirect('movies.show', id=id)
+def download_poster(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    # Use the 'image' field as the poster
+    poster_path = movie.image.path
+
+    if os.path.exists(poster_path):
+        return FileResponse(open(poster_path, 'rb'), as_attachment=True, filename=os.path.basename(poster_path))
+    else:
+        raise Http404("Poster not found.")

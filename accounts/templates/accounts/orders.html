@@ -30,9 +30,12 @@
                   <td>{{ item.movie.id }}</td>
                   <td>
                     <a class="link-dark"
-                      href="{% url 'movies.show'
-                      id=item.movie.id %}">
-                      {{ item.movie.name }}
+                    href="{% url 'movies.show' item.movie.id %}">
+                    {{ item.movie.name }}
+                    </a>
+                    <br>
+                    <a href="{% url 'download_poster' item.movie.id %}" class="btn btn-sm btn-primary">
+                    Download Poster
                     </a>
                   </td>
                   <td>${{ item.movie.price }}</td>
