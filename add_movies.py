@@ -1,3 +1,13 @@
+# save_items.py
+
+import os
+import django
+
+# Set up Django environment
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moviesstore.settings')
+django.setup()
+
+from movies.models import Movie
 import requests
 import json
 
@@ -6,7 +16,6 @@ Gets all movies from page 1-num_pages, writes the poster to proper directory,
 and returns info needed to create a movie and add to database
 '''
 def get_movies(num_pages):
-    final_movies = []
     for page in range(1, num_pages):
         url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=" + str(page) + "&sort_by=popularity.desc"
         headers = {
@@ -23,5 +32,6 @@ def get_movies(num_pages):
             img_data = requests.get(img_url).content
             with open(img_path, 'wb') as handler:
                 handler.write(img_data)
-            final_movies.append({'title':title, 'description':desc, 'image':img_path})
-    return final_movies
+            Movie.objects.create(name=title, price=5, description=desc, image=img_path[img_path.index('/movie_images'):])
+
+get_movies(10)
