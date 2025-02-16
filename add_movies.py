@@ -34,4 +34,17 @@ def get_movies(num_pages):
                 handler.write(img_data)
             Movie.objects.create(name=title, price=5, description=desc, image=img_path[img_path.index('/movie_images'):])
 
-get_movies(10)
+def rename_movies():
+    movies = Movie.objects.all()
+    for movie in movies:
+        path = 'media/' + str(movie.image).strip('/')
+        new_path = 'media/movie_images/' + str(movie.id) + '.jpg'
+        try:
+            os.rename(path, new_path)
+        except FileNotFoundError:
+            movie.delete()
+            continue
+        movie.image = new_path[new_path.index('/movie_images'):]
+        movie.save()
+
+rename_movies()
