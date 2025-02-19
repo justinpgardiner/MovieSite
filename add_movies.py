@@ -20,7 +20,7 @@ def get_movies(num_pages):
         url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=" + str(page) + "&sort_by=popularity.desc"
         headers = {
             "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZjUxMTkyN2RiYWEwYjU4ZTkzNmI1ZjZjMDFmNWQ1MyIsIm5iZiI6MTczOTQ4MDAwMi43MzcsInN1YiI6IjY3YWU1YmMyZjI4ZDk1YWRiM2QwZDZkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MpgP6sQF1m0kXBLBeNEzfDKsEGlOP4Ew3PRcrOSQ4QU"
+            "Authorization": "Bearer " + os.environ.get('MOVIE_API_KEY')
         }
         response = requests.get(url, headers=headers)
         movies = json.loads(response.text)['results']
